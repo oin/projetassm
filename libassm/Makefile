@@ -19,6 +19,7 @@ endef
 LIB=lib/libassm.a
 
 $(LIB): $(objects)
+	mkdir -p lib
 	$(AR) $(ARFLAGS)s $@ $^
 
 %.o: %.c
