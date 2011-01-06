@@ -2,12 +2,28 @@
 
 void delay::operator()() {
 		// Pas d'allongement, baby
-		//size_t ancienne_fin = echantillon_fin();
 		allonger();
 		// Disto !
 		size_t echantillon_delay = static_cast<size_t>(time_ * in().rate());
-		for(size_t i=echantillon_debut()+echantillon_delay; i<echantillon_fin(); ++i) {
-			out().data()[i] = out().data()[i] + out().data()[i-echantillon_delay] * feedback_;
-
+		
+		assm::son tmp(out().size(), out().rate());
+		
+		for(size_t i=echantillon_debut(); i + echantillon_delay < echantillon_fin(); ++i) {
+			tmp.data()[i + echantillon_delay] = in().data()[i] + tmp.data()[i] * feedback_;
 		}
+		
+		// Mixage
+		for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i) {
+			out().data()[i] =
+				// On mixe le signal généré
+				std::min(1.0, std::max(-1.0, tmp.data()[i])) * wet() 
+				+
+				// Et le signal d'origine
+				in().data()[i] * dry();
+		}
+		
+		// for(size_t i=echantillon_debut()+echantillon_delay; i<echantillon_fin(); ++i) {
+		// 	out().data()[i] = out().data()[i] + out().data()[i-echantillon_delay] * feedback_;
+		// 
+		// }
 }

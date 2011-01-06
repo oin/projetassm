@@ -8,7 +8,7 @@ struct noise_gate : public effet {
 	noise_gate(chaine_effets& s, double l = 0.1) : effet(s), limit_(l) {}
 	double limit() const { return limit_; }
 	void limit(double g) { limit_ = g; }
-	size_t allongement() const { return 0; }
+	size_t allongement() { return 0; }
 	virtual void operator()();
 private:
 	double limit_;

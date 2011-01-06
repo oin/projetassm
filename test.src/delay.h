@@ -10,7 +10,7 @@ struct delay : public effet {
 	void time(double t) { time_ = t; }
 	double feedback() const { return feedback_; }
 	void feedback(double t) { feedback_ = t; }
-	size_t allongement() const { return 0; }
+	size_t allongement() { return time_ * in().rate(); }
 	virtual void operator()();
 private:
 	double time_;

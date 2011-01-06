@@ -29,13 +29,14 @@ int main(int argc, char **argv) {
 	c.effets().push_back(&d);
 	c.effets().push_back(&d2);
 	*/
-	delay d(c,0.1);
-	d.feedback(0.4);
+	delay d(c,0.2);
+	d.feedback(0.9);
 	d.debut(0.5);
+	d.fin(1);
+	d.wet(0.5);
 	c.effets().push_back(&d);
-	/*
 	distorsion d2(c, 14.0);
-	c.effets().push_back(&d2);*/
+	c.effets().push_back(&d2);
 	// Exécute la chaîne d'effets
 	c();
 	// Le son pd est modifié, on l'écrit dans un fichier

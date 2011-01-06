@@ -7,7 +7,7 @@
 struct effet {
 	effet(chaine_effets& c) : s_(0), s_out_(0), dry_(0.0), debut_(0.0), fin_(1.0) {}
 	virtual ~effet() {}
-	virtual size_t allongement() const = 0;
+	virtual size_t allongement() = 0;
 	virtual void operator()() = 0; // appliquer
 	
 	void dry(double);
