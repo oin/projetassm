@@ -1,4 +1,5 @@
 #include "distorsion.h"
+#include "delay.h"
 #include <iostream>
 #include <chaine_effets.h>
 #include <assm.h>
@@ -19,6 +20,7 @@ int main(int argc, char **argv) {
 	
 	// Crée une chaîne d'effets sur le son
 	chaine_effets c(pd);
+	/*
 	// Crée une bonne grosse disto de bâtard
 	distorsion d(c, 24.0);
 	d.debut(0.2);
@@ -26,6 +28,14 @@ int main(int argc, char **argv) {
 	// Rajoute cette disto dans les effets
 	c.effets().push_back(&d);
 	c.effets().push_back(&d2);
+	*/
+	delay d(c,0.1);
+	d.feedback(0.4);
+	d.debut(0.5);
+	c.effets().push_back(&d);
+	/*
+	distorsion d2(c, 14.0);
+	c.effets().push_back(&d2);*/
 	// Exécute la chaîne d'effets
 	c();
 	// Le son pd est modifié, on l'écrit dans un fichier
