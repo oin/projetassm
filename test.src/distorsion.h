@@ -5,7 +5,7 @@
 #include <son.h>
 
 struct distorsion : public effet {
-	distorsion(assm::son& s, double g = 1.0) : effet(s), gain_(g) {}
+	distorsion(chaine_effets& c, double g = 1.0) : effet(c), gain_(g) {}
 	double gain() const { return gain_; }
 	void gain(double g) { gain_ = g; }
 	size_t allongement() const { return 0; }

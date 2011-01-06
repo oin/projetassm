@@ -4,11 +4,12 @@ void distorsion::operator()() {
 		// Pas d'allongement, baby
 		// allonger();
 		// Disto !
-		for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i)
-			cible().data()[i] =
+		for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i) {
+			out().data()[i] =
 				// On mixe le signal distordu
-				std::min(1.0, std::max(-1.0, cible().data()[i] * gain_)) * wet() 
+				std::min(1.0, std::max(-1.0, in().data()[i] * gain_)) * wet() 
 				+
 				// Et le signal d'origine
-				cible().data()[i] * dry();
+				in().data()[i] * dry();
+		}
 }

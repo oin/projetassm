@@ -20,13 +20,16 @@ int main(int argc, char **argv) {
 	// Crée une chaîne d'effets sur le son
 	chaine_effets c(pd);
 	// Crée une bonne grosse disto de bâtard
-	distorsion d(pd, 24.0);
+	distorsion d(c, 24.0);
+	d.debut(0.2);
+	distorsion d2(c, 14.0);
 	// Rajoute cette disto dans les effets
 	c.effets().push_back(&d);
+	c.effets().push_back(&d2);
 	// Exécute la chaîne d'effets
 	c();
 	// Le son pd est modifié, on l'écrit dans un fichier
-	ecrire_wav(pd, argv[2]);
+	ecrire_wav(c.out(), argv[2]);
 	
 	return 0;
 }

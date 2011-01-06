@@ -17,20 +17,32 @@ double effet::wet() const {
 	return 1.0 - dry_;
 }
 
-void effet::cible(assm::son& s) {
-	s_ = s;
+void effet::in(assm::son& s) {
+	s_ = &s;
 }
 
-assm::son& effet::cible() {
-	return s_;
+assm::son& effet::in() {
+	return *s_;
+}
+
+void effet::out(assm::son& s) {
+	s_out_ = &s;
+}
+
+assm::son& effet::out() {
+	return *s_out_;
 }
 
 void effet::debut(double d) {
-	debut_ = d;
+	debut_ = std::min(std::max(0.0, d), 1.0);
+	if(debut_ > fin_)
+		std::swap(debut_, fin_);
 }
 
 void effet::fin(double f) {
-	fin_ = f;
+	fin_ = std::min(std::max(0.0, f), 1.0);
+	if(debut_ > fin_)
+		std::swap(debut_, fin_);
 }
 
 double effet::debut() const {
@@ -41,12 +53,12 @@ double effet::fin() const {
 	return fin_;
 }
 
-size_t effet::echantillon_debut() const {
-	return debut_ * s_.size();
+size_t effet::echantillon_debut() {
+	return debut_ * in().size();
 }
 
-size_t effet::echantillon_fin() const {
-	return fin_ * s_.size();
+size_t effet::echantillon_fin() {
+	return fin_ * in().size();
 }
 
 void effet::limites(double d, double f) {
@@ -57,8 +69,8 @@ void effet::limites(double d, double f) {
 void effet::allonger() {
 	// On rajoute des échantillons sur la fin si le son n'est pas assez grand, sinon on bouge la fin
 	double allongement_ = allongement();
-	if(echantillon_fin() + allongement_ > s_.size())
-		s_.data().resize(echantillon_fin() + allongement_);
+	if(echantillon_fin() + allongement_ > out().size())
+		out().data().resize(echantillon_fin() + allongement_);
 	else
-		fin_ += allongement_ * 1.0 / s_.size();
+		fin_ += allongement_ * 1.0 / out().size();
 }
