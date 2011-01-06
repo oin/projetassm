@@ -16,8 +16,12 @@ fftw3_ldflags = -L$(fftw3_dir)/lib -lfftw3
 gtkmm_cppflags = `pkg-config gtkmm-2.4 --cflags`
 gtkmm_ldflags = `pkg-config gtkmm-2.4 --libs`
 
+# lib : projet
+projet_dir = ./libprojet
+projet_cppflags = -I$(projet_dir)
+
 # libs:
-librairies = assm fftw3 gtkmm
+librairies = assm fftw3 gtkmm projet
 
 # Concaténation de toutes les choses nécessaires aux librairies
 librairies_cppflags = $(foreach lib,$(librairies),$($(addsuffix _cppflags,$(lib))))
@@ -36,6 +40,10 @@ LDFLAGS += $(librairies_ldflags)
 # Tous les programmes sont pourvus de l'extension .src
 programmes = $(patsubst %.src,%,$(wildcard *.src))
 
+# Tous dépendent de libprojet
+vpath %.h $(projet_dir)
+projet_objects = $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/*.cpp))
+
 ##################
 
 .PHONY: all libassm
@@ -45,13 +53,16 @@ all: libassm $(programmes)
 libassm:
 	make --directory=$(assm_dir)
 
-%: %.src/*.cpp $(assm_dir)/lib/libassm.a
+%: %.src/*.cpp $(assm_dir)/lib/libassm.a libprojet.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
+
+libprojet.a: $(projet_objects)
+	$(AR) $(ARFLAGS)s $@ $^
 
 %.o: %.cpp
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $^
 
 .PHONY: clean
 clean:
-	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes))
+	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) libprojet.a libprojet/*.o
 	make --directory=$(assm_dir) clean
