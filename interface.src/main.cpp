@@ -1,6 +1,10 @@
 #include <iostream>
-#include "fenetre.h"
+#include "controleur.h"
+#include <cstdlib>
+#include <ctime>
 
 int main(int argc, char **argv) {
-	fenetre f(argc, argv);
+	srand(time(NULL));
+	controleur c(argc, argv);
+	c.lancer();
 }

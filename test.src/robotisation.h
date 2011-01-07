@@ -7,8 +7,7 @@
 #include <iterator_part.hpp>
 
 struct robotisation : public effet {
-	robotisation(chaine_effets& s) : effet(s){}
-	size_t allongement() { return 0; }
+	robotisation(chaine_effets& s) : effet(s) {}
 	virtual void operator()();
 };
 

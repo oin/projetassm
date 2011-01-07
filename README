@@ -1,0 +1,27 @@
+# Introduction #
+
+Le projet d'ASSM est un projet très bien, il permer de faire des choses très peu utiles mais quand même, c'est beaucoup de travail !
+
+# Mise en marche #
+
+## Prérequis ##
+
+Pour utiliser le projet d'ASSM, il suffit de disposer des bibliothèques logicielles suivantes :
+
+* FFTW 3;
+* GTK+ et GTKmm;
+* sox.
+
+## Compilation ##
+
+Dans ce répertoire :
+
+	$ make
+
+La compilation devrait se dérouler paisiblement.
+
+## Exécution ##
+
+Dans ce répertoire :
+
+	$ ./projet

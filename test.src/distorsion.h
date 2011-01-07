@@ -8,7 +8,6 @@ struct distorsion : public effet {
 	distorsion(chaine_effets& c, double g = 1.0) : effet(c), gain_(g) {}
 	double gain() const { return gain_; }
 	void gain(double g) { gain_ = g; }
-	size_t allongement() { return 0; }
 	virtual void operator()();
 private:
 	double gain_;

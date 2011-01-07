@@ -5,8 +5,7 @@
 #include <son.h>
 
 struct normalisation : public effet {
-	normalisation(chaine_effets& s) : effet(s){}
-	size_t allongement() { return 0; }
+	normalisation(chaine_effets& s) : effet(s) {}
 	virtual void operator()();
 };
 

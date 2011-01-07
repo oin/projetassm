@@ -7,7 +7,6 @@
 struct effet {
 	effet(chaine_effets& c) : s_(0), s_out_(0), dry_(0.0), debut_(0.0), fin_(1.0) {}
 	virtual ~effet() {}
-	virtual size_t allongement() = 0;
 	virtual void operator()() = 0; // appliquer
 	
 	void dry(double);
@@ -28,8 +27,6 @@ struct effet {
 	size_t echantillon_debut();
 	size_t echantillon_fin();
 	void limites(double d, double f);
-protected:
-	void allonger();
 private:
 	assm::son* s_;
 	assm::son* s_out_;

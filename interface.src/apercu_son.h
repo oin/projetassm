@@ -5,10 +5,18 @@
 #include <vector>
 
 struct apercu_son {
+	apercu_son() : s_(son_vide_), apercu_(nb_points_) {
+		reconstruire();
+	}
+	
 	apercu_son(assm::son& s) : s_(s), apercu_(nb_points_) {
 		reconstruire();
 	}
+	
 	virtual ~apercu_son() {}
+	
+	void set(assm::son& s) { s_ = s; reconstruire(); }
+	
 	virtual void reconstruire();
 	std::vector<double>& operator()() { return apercu_; }
 	size_t size() const { return apercu_.size(); }
@@ -19,6 +27,7 @@ private:
 	assm::son& s_;
 	size_t pas_;
 	std::vector<double> apercu_;
+	static assm::son son_vide_;
 };
 
 #endif /* end of include guard: APERCU_SON_H_KNSHXPES */
