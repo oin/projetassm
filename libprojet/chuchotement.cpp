@@ -1,5 +1,4 @@
 #include "chuchotement.h"
-#include <iostream>
 
 using namespace assm;
 
@@ -14,7 +13,7 @@ void applique_fenetre_de_hanna(son& s) {
 }
 
 void chuchotement::operator()() {
-	size_t taille_fft = 1024;
+	size_t taille_fft = 512;
 	son fenetre(taille_fft, 44100);
 
 	// Fait une fenêtre de Hann
@@ -23,6 +22,8 @@ void chuchotement::operator()() {
 		
 	fft ma_fft(fenetre);
 	ffti ma_ffti(ma_fft.out());
+	
+	std::fill(out().data().begin() + echantillon_debut(), out().data().begin() + echantillon_fin(), 0);
 	
 	for(size_t i=echantillon_debut(); i+taille_fft<echantillon_fin(); i += taille_fft/2){
 	  
@@ -40,7 +41,11 @@ void chuchotement::operator()() {
 		ma_fft.out().conjugue_symetrie();
 		// Fait la FFTI
 		ma_ffti();
+		// La fenêtre
+		std::transform(fenetre_hann.data().begin(), fenetre_hann.data().end(), ma_ffti.out().begin(), ma_ffti.out().begin(), std::multiplies<double>());
 		// Recopie le résultat dans la sortie au bon endroit
-		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
+		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i, out().data().begin() + i,std::plus<double>());
 	}
+	
+	mixer_drywet();
 }

@@ -41,6 +41,10 @@ struct wave_afficheur : public Gtk::DrawingArea {
 	
 	double teinte() { return teinte_selection_; }
 	Gdk::Color couleur();
+	
+	void set_numero(int n) {
+		numero_effet_ = n;
+	}
 private:
 	void verifier_selection();
 	
@@ -50,9 +54,11 @@ private:
 	double selection_start_, selection_end_;
 	bool selectionne_;
 	bool peut_selectionner_;
+	bool en_plein_clic_sur_croix_;
 	double teinte_selection_;
 	effet* fx_;
 	int numero_effet_;
+	static const double rayon_ = 6.0;
 };
 
 #endif /* end of include guard: WAVE_AFFICHEUR_H_U0C3RQCW */

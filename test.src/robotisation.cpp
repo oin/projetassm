@@ -1,5 +1,4 @@
 #include "robotisation.h"
-#include <iostream>
 
 using namespace assm;
 
