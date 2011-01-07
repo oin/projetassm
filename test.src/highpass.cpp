@@ -1,30 +1,30 @@
-#include "lowpass.h"
+#include "highpass.h"
 #include <iostream>
 
 using namespace assm;
 
-void PassBas(son& s,double ordre){
+void PassHaut(son& s,double ordre){
 size_t i;
-s.data()[0]=1;
+s.data()[0]=0;
 s.data()[(int)ordre/2]=1;
 
   for(i=1;i<(ordre/2);i++){
-    s.data()[i]=1;
+    s.data()[i]=0;
   }
   
  for(i=(int)(ordre/2);i<s.size();i++){
-    s.data()[i]=0;
+    s.data()[i]=1;
   }
 }
 
-void fenetre_de_hann(son& s) {
+void fenetre_de_hannpass(son& s) {
 	for(size_t n=0; n<s.size(); ++n) {
 		s.data()[n] = 0.5 * (1 - cos(2 * 3.14159 * n / s.size()));
 	}
 }
 
-void lowpass::operator()() {
-	// lowpass
+void highpass::operator()() {
+	// highpass
 
 
 	size_t taille_fft = 1024;
@@ -35,10 +35,10 @@ void lowpass::operator()() {
 	
 	// Fait une fenêtre de Hann
 	son fenetre_hann(taille_fft, 44100);
-	fenetre_de_hann(fenetre_hann);
+	fenetre_de_hannpass(fenetre_hann);
 	
 	son filtre(taille_fft, 44100);
-	PassBas(filtre,ordre); 
+	PassHaut(filtre,ordre); 
 	
 	fft ma_fft(fenetre);
 	ffti ma_ffti(ma_fft.out());
@@ -55,7 +55,7 @@ void lowpass::operator()() {
 				
 		// Fait la FFT
 		ma_fft();
-		// Fait le lowpass
+		// Fait le highpass
 		std::transform(filtre.data().begin(), filtre.data().end(), ma_fft.out().data().begin(), ma_fft.out().data().begin(), std::multiplies<double>());
 
 		// Fait une conjugué-symétrie
@@ -65,4 +65,5 @@ void lowpass::operator()() {
 		// Recopie le résultat dans la sortie au bon endroit
 		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
+
 }

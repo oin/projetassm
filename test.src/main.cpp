@@ -5,6 +5,8 @@
 #include "vynil.h"
 #include "lowboost.h"
 #include "lowpass.h"
+#include "highpass.h"
+#include "partition.h"
 #include <iostream>
 #include <chaine_effets.h>
 #include <assm.h>
@@ -56,19 +58,23 @@ int main(int argc, char **argv) {
 	/*
 	lowboost l(c);
 	c.effets().push_back(&l);*/
-	
+	/*
 	lowpass l(c,200);
 	c.effets().push_back(&l);
-	
+	*/
+	/*
+	highpass h(c,1200);
+	c.effets().push_back(&h);
+	*/
 // 	r.debut(0);
 // 	r.fin(1);
 	
-	
+	partition p(c,"test.midi");
+	c.effets().push_back(&p);
 	/*
-	
 	delay d(c,0.2);
 	d.feedback(0.9);
-	d.debut(0.5);
+	d.debut(0);
 	d.fin(1);
 	d.wet(0.5);
 	c.effets().push_back(&d);
