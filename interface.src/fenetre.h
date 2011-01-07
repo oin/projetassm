@@ -12,7 +12,6 @@ struct fenetre {
 	fenetre(int argc, char** argv);
 	virtual ~fenetre() {}
 private:
-	Gtk::Main gtk_;
 	Gtk::Window win_;
 };
 

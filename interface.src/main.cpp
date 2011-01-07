@@ -1,6 +1,7 @@
 #include <iostream>
-#include "fenetre.h"
+#include "controleur.h"
 
 int main(int argc, char **argv) {
-	fenetre f(argc, argv);
+	controleur c(argc, argv);
+	c.lancer();
 }
