@@ -1,5 +1,6 @@
 #include "distorsion.h"
 #include "delay.h"
+#include "robotisation.h"
 #include <iostream>
 #include <chaine_effets.h>
 #include <assm.h>
@@ -29,6 +30,20 @@ int main(int argc, char **argv) {
 	c.effets().push_back(&d);
 	c.effets().push_back(&d2);
 	*/
+	
+	distorsion d(c, 0.4);
+	c.effets().push_back(&d);
+
+	robotisation r(c);
+		std::cout<<"Ttry??\n";
+	c.effets().push_back(&r);
+	std::cout<<"BAD??\n";
+// 	r.debut(0);
+// 	r.fin(1);
+	
+	
+	/*
+	
 	delay d(c,0.2);
 	d.feedback(0.9);
 	d.debut(0.5);
@@ -36,11 +51,12 @@ int main(int argc, char **argv) {
 	d.wet(0.5);
 	c.effets().push_back(&d);
 	distorsion d2(c, 14.0);
-	c.effets().push_back(&d2);
+	c.effets().push_back(&d2);*/
 	// Exécute la chaîne d'effets
 	c();
+	std::cout<<"ici1\n";
 	// Le son pd est modifié, on l'écrit dans un fichier
 	ecrire_wav(c.out(), argv[2]);
-	
+	std::cout<<"la?\n";
 	return 0;
 }

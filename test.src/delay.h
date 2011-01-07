@@ -17,4 +17,4 @@ private:
 	double feedback_;
 };
 
-#endif /* end of include guard: DISTORSION_H_9BYEBXJJ */
+#endif
