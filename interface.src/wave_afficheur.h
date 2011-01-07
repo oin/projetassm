@@ -21,7 +21,7 @@ private:
 };
 
 struct wave_afficheur : public Gtk::DrawingArea {
-	wave_afficheur(apercu_son& s, effet& e, double pas = 3);
+	wave_afficheur(apercu_son& s, effet* e, double pas = 3);
 	virtual ~wave_afficheur();
 	
 	void dessiner(Cairo::RefPtr<Cairo::Context> &cr, int x, int y, int w, int h);
@@ -43,7 +43,7 @@ private:
 	bool selectionne_;
 	bool peut_selectionner_;
 	double teinte_selection_;
-	effet& fx_;
+	effet* fx_;
 };
 
 #endif /* end of include guard: WAVE_AFFICHEUR_H_U0C3RQCW */

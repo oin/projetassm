@@ -15,7 +15,15 @@ double distributeur_de_teintes::prochaine_teinte() {
 	return hue;
 }
 
-wave_afficheur::wave_afficheur(apercu_son& s, effet& e, double pas) : s_(s), pas_x_(pas), selection_start_(-1), selection_end_(-1), peut_selectionner_(true), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()), fx_(e) {
+wave_afficheur::wave_afficheur(apercu_son& s, effet* e, double pas) : s_(s), pas_x_(pas), peut_selectionner_(true), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()), fx_(e) {
+	selection_start_ = -1;
+	selection_end_ = -1;
+	
+	if(fx_ != 0 && peut_selectionner_) {
+		selection_start_ = fx_->debut();
+		selection_end_ = fx_->fin();
+	}
+	
 	add_events(Gdk::BUTTON_PRESS_MASK | Gdk::BUTTON_RELEASE_MASK | Gdk::POINTER_MOTION_MASK | Gdk::POINTER_MOTION_HINT_MASK);
 }
 

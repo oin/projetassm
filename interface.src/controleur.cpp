@@ -3,7 +3,7 @@
 #include <iostream>
 #include <assm.h>
 
-controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_(Gtk::Stock::APPLY), btn_entree_(Gtk::Stock::OPEN), btn_sortie_(Gtk::Stock::SAVE), liste_(*this), s_(44100), fx_(s_), tr1_(*this, 0), aff_entree_(apercu_), aff_sortie_(apercu_) {
+controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_(Gtk::Stock::APPLY), btn_entree_(Gtk::Stock::OPEN), btn_sortie_(Gtk::Stock::SAVE), liste_(*this), s_(44100), fx_(s_), tr1_(*this, 0), aff_entree_(apercu_, 0), aff_sortie_(apercu_, 0) {
 	aff_entree_.peut_selectionner(false);
 	aff_sortie_.peut_selectionner(false);
 	
