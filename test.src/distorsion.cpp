@@ -1,8 +1,6 @@
 #include "distorsion.h"
 
 void distorsion::operator()() {
-		// Pas d'allongement, baby
-		// allonger();
 		// Disto !
 		for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i) {
 			out().data()[i] =

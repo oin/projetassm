@@ -6,9 +6,6 @@ chaine_effets::chaine_effets(assm::son& s) : s_(s), s_tmp1_(s.rate()), s_tmp2_(s
 chaine_effets::~chaine_effets() {}
 
 void chaine_effets::operator()() {
-	// Redimensionne les sons "out"
-	s_tmp1_.data().resize(in().size());
-	s_tmp2_.data().resize(s_tmp1_.size());
 	
 	for(size_t i=0; i<effets_.size(); ++i) {
 		effet& courant = *effets_[i];
@@ -25,7 +22,6 @@ void chaine_effets::operator()() {
 			courant.in(s_);
 		
 		// out <- in (pour l'instant)
-		courant.out().resize(courant.in().size());
 		std::copy(courant.in().data().begin(), courant.in().data().end(), courant.out().data().begin());
 		
 		// Applique l'effet
@@ -46,5 +42,7 @@ assm::son& chaine_effets::in() {
 }
 
 assm::son& chaine_effets::out() {
+	if(effets_.empty())
+		return s_;
 	return effets_.size() % 2 == 0 ? s_tmp2_ : s_tmp1_;
 }

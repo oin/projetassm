@@ -15,6 +15,8 @@ struct apercu_son {
 	
 	virtual ~apercu_son() {}
 	
+	void set(assm::son& s) { s_ = s; reconstruire(); }
+	
 	virtual void reconstruire();
 	std::vector<double>& operator()() { return apercu_; }
 	size_t size() const { return apercu_.size(); }
