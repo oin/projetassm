@@ -3,6 +3,8 @@
 #include "robotisation.h"
 #include "inverse.h"
 #include "vynil.h"
+#include "lowboost.h"
+#include "lowpass.h"
 #include <iostream>
 #include <chaine_effets.h>
 #include <assm.h>
@@ -47,10 +49,16 @@ int main(int argc, char **argv) {
 	v.debut(0.001);
 	c.effets().push_back(&v);
 	*/
-	
+	/*
 	inverse i(c);
 	c.effets().push_back(&i);
-
+	*/
+	/*
+	lowboost l(c);
+	c.effets().push_back(&l);*/
+	
+	lowpass l(c,200);
+	c.effets().push_back(&l);
 	
 // 	r.debut(0);
 // 	r.fin(1);

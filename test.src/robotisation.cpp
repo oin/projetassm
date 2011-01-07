@@ -24,6 +24,8 @@ void robotisation::operator()() {
 	fft ma_fft(fenetre);
 	ffti ma_ffti(ma_fft.out());
 	
+	std::fill(out().data().begin()+echantillon_debut(), out().data().begin()+echantillon_fin(),0.0);
+	
 	for(size_t i=echantillon_debut(); i+taille_fft<echantillon_fin(); i += taille_fft/2){
 	  
 		// Copie de l'entrée dans la fenêtre
