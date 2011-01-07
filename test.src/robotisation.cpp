@@ -18,7 +18,7 @@ void robotisation::operator()() {
 	son fenetre(taille_fft, 44100);
 
 	// Fait une fenêtre de Hann
-	son fenetre_hann(taille_fft/2, 44100);
+	son fenetre_hann(taille_fft, 44100);
 	appliquer_fenetre_de_hann(fenetre_hann);
 		
 	fft ma_fft(fenetre);

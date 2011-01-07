@@ -36,21 +36,21 @@ int main(int argc, char **argv) {
 	distorsion d(c, 0.4);
 	c.effets().push_back(&d);
 */
-	
+	/*
 	robotisation r(c);
-		std::cout<<"Ttry??\n";
+	std::cout<<"Ttry??\n";
 	c.effets().push_back(&r);
 	std::cout<<"BAD??\n";
-	
+	*/
 	/*
 	vynil v(c,0.2);
 	v.debut(0.001);
 	c.effets().push_back(&v);
 	*/
-	/*
+	
 	inverse i(c);
 	c.effets().push_back(&i);
-*/
+
 	
 // 	r.debut(0);
 // 	r.fin(1);
