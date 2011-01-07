@@ -41,7 +41,6 @@ void robotisation::operator()() {
 		// Fait la FFTI
 		ma_ffti();
 		// Recopie le résultat dans la sortie au bon endroit
-		std::copy(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i);
+		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
-	std::cout<<"OK Boyz!\n";
 }

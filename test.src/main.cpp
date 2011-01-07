@@ -1,6 +1,8 @@
 #include "distorsion.h"
 #include "delay.h"
 #include "robotisation.h"
+#include "inverse.h"
+#include "vynil.h"
 #include <iostream>
 #include <chaine_effets.h>
 #include <assm.h>
@@ -30,14 +32,26 @@ int main(int argc, char **argv) {
 	c.effets().push_back(&d);
 	c.effets().push_back(&d2);
 	*/
-	
+	/*	
 	distorsion d(c, 0.4);
 	c.effets().push_back(&d);
-
+*/
+	
 	robotisation r(c);
 		std::cout<<"Ttry??\n";
 	c.effets().push_back(&r);
 	std::cout<<"BAD??\n";
+	
+	/*
+	vynil v(c,0.2);
+	v.debut(0.001);
+	c.effets().push_back(&v);
+	*/
+	/*
+	inverse i(c);
+	c.effets().push_back(&i);
+*/
+	
 // 	r.debut(0);
 // 	r.fin(1);
 	
@@ -54,9 +68,8 @@ int main(int argc, char **argv) {
 	c.effets().push_back(&d2);*/
 	// Exécute la chaîne d'effets
 	c();
-	std::cout<<"ici1\n";
+
 	// Le son pd est modifié, on l'écrit dans un fichier
 	ecrire_wav(c.out(), argv[2]);
-	std::cout<<"la?\n";
 	return 0;
 }
