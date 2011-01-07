@@ -8,6 +8,7 @@ controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_
 	aff_sortie_.peut_selectionner(false);
 	
 	w_.set_title("ASSM 3.11 for Workgroups");
+	w_.set_default_size(500, 400);
 	w_.set_border_width(5);
 	
 	scl_effets_.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_AUTOMATIC);
@@ -28,7 +29,7 @@ controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_
 	lbl_entree_fichier_.set_line_wrap(false);
 	lbl_entree_fichier_.set_alignment(Gtk::ALIGN_LEFT, Gtk::ALIGN_CENTER);
 	hbx_entree_fichier_.pack_start(lbl_entree_fichier_, true, true, 5);
-	// btn_entree_.set_label("...");
+	
 	vbx_entree_gauche_.add(hbx_entree_fichier_);
 	
 	frm_entree_.set_label("Entrée");
