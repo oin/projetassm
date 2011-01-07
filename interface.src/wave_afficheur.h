@@ -20,8 +20,10 @@ private:
 	distributeur_de_teintes() {}
 };
 
+class controleur;
+
 struct wave_afficheur : public Gtk::DrawingArea {
-	wave_afficheur(apercu_son& s, effet* e, double pas = 3);
+	wave_afficheur(controleur& c, effet* e, int numero_effet, double pas = 3);
 	virtual ~wave_afficheur();
 	
 	void dessiner(Cairo::RefPtr<Cairo::Context> &cr, int x, int y, int w, int h);
@@ -36,7 +38,13 @@ struct wave_afficheur : public Gtk::DrawingArea {
 	
 	double selection_start() { return selection_start_; }
 	double selection_end() { return selection_end_; }
+	
+	double teinte() { return teinte_selection_; }
+	Gdk::Color couleur();
 private:
+	void verifier_selection();
+	
+	controleur& c_;
 	apercu_son& s_;
 	double pas_x_;
 	double selection_start_, selection_end_;
@@ -44,6 +52,7 @@ private:
 	bool peut_selectionner_;
 	double teinte_selection_;
 	effet* fx_;
+	int numero_effet_;
 };
 
 #endif /* end of include guard: WAVE_AFFICHEUR_H_U0C3RQCW */

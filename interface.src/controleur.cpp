@@ -1,9 +1,10 @@
+#include "inverse.h"
 #include "controleur.h"
-#include "fenetre.h"
+#include "hsl2rgb.h"
 #include <iostream>
 #include <assm.h>
 
-controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_(Gtk::Stock::APPLY), btn_entree_(Gtk::Stock::OPEN), btn_sortie_(Gtk::Stock::SAVE), liste_(*this), s_(44100), fx_(s_), tr1_(*this, 0), aff_entree_(apercu_, 0), aff_sortie_(apercu_, 0) {
+controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_(Gtk::Stock::APPLY), btn_entree_(Gtk::Stock::OPEN), btn_sortie_(Gtk::Stock::SAVE), liste_(*this), s_(44100), fx_(s_), aff_entree_(*this, 0, -1), aff_sortie_(*this, 0, std::numeric_limits<int>::max()) {
 	aff_entree_.peut_selectionner(false);
 	aff_sortie_.peut_selectionner(false);
 	
@@ -17,8 +18,6 @@ controleur::controleur(int argc, char** argv) : gtk_(argc, argv), btn_appliquer_
 	btn_appliquer_.signal_clicked().connect(sigc::mem_fun(*this, &controleur::appliquer_effets));
 	btns_bas_.add(btn_appliquer_);
 	hbx_bas_.add(btns_bas_);
-	
-	vbx_effets_.pack_start(tr1_, false, false, 5);
 	
 	scl_effets_.add(vbx_effets_);
 	
@@ -86,6 +85,16 @@ void controleur::appliquer_effets() {
 	w_.set_sensitive(true);
 }
 
+void controleur::creer_inverse() {
+	effet* e = new inverse(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_effet(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	w_.show_all_children();
+	actualiser();
+}
+
 void controleur::creer_noisegate() {
 	std::cout << "Noise gate" << std::endl;
 }
@@ -115,7 +124,7 @@ void controleur::charger_son(std::string n) {
 	
 	lbl_entree_fichier_.set_label(n);
 	
-	w_.queue_draw();
+	actualiser();
 }
 
 void controleur::ouvrir_fichier_entree() {
@@ -171,4 +180,34 @@ void controleur::choisir_fichier_sortie() {
 		// On affiche ce nom
 		lbl_sortie_fichier_.set_label(nom_fichier_out_);
 	}
+}
+
+Gdk::Color controleur::couleur_sur(double position, int jusqu_a) {
+	double h = 0;
+	double s = 0.0;
+	double l = 0.0;
+	static const double q = 0.3; // coefficient de mélange
+	int nb_effets_dessus = 0;
+	
+	if(jusqu_a >= 0)
+	for(int i = 0; i < std::min(static_cast<int>(tranches_.size()), jusqu_a); ++i) {
+		if(fx_.effets()[i]->debut() <= position && position <= fx_.effets()[i]->fin()) {
+			// Il est dedans !
+			++nb_effets_dessus;
+			if(nb_effets_dessus == 1) {
+				h = tranches_[i]->afficheur().teinte();
+				l = 0.5;
+			} else {
+				h = (h * q + tranches_[i]->afficheur().teinte() * (1-q));
+				l = (l + l * 1.0 / 2) * 1.0 / 2;
+			}
+			s = 1.0;
+		}
+	}
+	
+	return couleur_hsl(h, s, l);
+}
+
+void controleur::actualiser() {
+	w_.queue_draw();
 }

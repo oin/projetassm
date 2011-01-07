@@ -11,7 +11,7 @@ struct liste_effets : public Gtk::ScrolledWindow {
 public:
 	controleur& c_;
 	Gtk::HButtonBox boite_a_boutons_;
-	Gtk::Button b_noisegate_, b_delay_, b_distorsion_, b_normalisation_;
+	Gtk::Button b_noisegate_, b_delay_, b_distorsion_, b_normalisation_, b_inverse_;
 };
 
 #endif /* end of include guard: LISTE_EFFETS_H_1II9TGY3 */

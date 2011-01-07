@@ -2,6 +2,11 @@
 #include "controleur.h"
 
 liste_effets::liste_effets(controleur& c) : c_(c), boite_a_boutons_(Gtk::BUTTONBOX_START) {
+	b_inverse_.set_label("Inversion");
+	b_inverse_.set_focus_on_click(false);
+	b_inverse_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_inverse));
+	boite_a_boutons_.add(b_inverse_);
+	
 	b_noisegate_.set_label("Noise gate");
 	b_noisegate_.set_focus_on_click(false);
 	b_noisegate_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_noisegate));

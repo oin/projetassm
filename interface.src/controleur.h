@@ -21,11 +21,15 @@ struct controleur {
 	void creer_delay();
 	void creer_distorsion();
 	void creer_normalisation();
+	void creer_inverse();
 	
 	void ouvrir_fichier_entree();
 	void choisir_fichier_sortie();
 	
 	apercu_son& apercu() { return apercu_; }
+	void actualiser();
+	
+	Gdk::Color couleur_sur(double position, int jusqu_a);
 private:
 	void charger_son(std::string);
 	
@@ -41,13 +45,14 @@ private:
 	assm::son s_;
 	apercu_son apercu_;
 	chaine_effets fx_;
-	tranche_effet tr1_;
 	wave_afficheur aff_entree_, aff_sortie_;
 	Gtk::HBox hbx_entree_, hbx_sortie_, hbx_entree_fichier_, hbx_sortie_fichier_;
 	Gtk::VBox vbx_entree_gauche_, vbx_sortie_gauche_;
 	Gtk::Label lbl_entree_fichier_, lbl_sortie_fichier_;
 	Gtk::Frame frm_entree_, frm_sortie_;
 	std::string nom_fichier_out_;
+	
+	std::vector<tranche_effet*> tranches_;
 };
 
 #endif /* end of include guard: CONTROLEUR_H_DSQJBJNI */
