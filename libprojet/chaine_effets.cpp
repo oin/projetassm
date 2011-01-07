@@ -22,6 +22,7 @@ void chaine_effets::operator()() {
 			courant.in(s_);
 		
 		// out <- in (pour l'instant)
+		courant.out().resize(courant.in().size());
 		std::copy(courant.in().data().begin(), courant.in().data().end(), courant.out().data().begin());
 		
 		// Applique l'effet

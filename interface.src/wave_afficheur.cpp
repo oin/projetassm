@@ -15,7 +15,7 @@ double distributeur_de_teintes::prochaine_teinte() {
 	return hue;
 }
 
-wave_afficheur::wave_afficheur(apercu_son& s, double pas) : s_(s), pas_x_(pas), selection_start_(-1), selection_end_(-1), peut_selectionner_(true), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()) {
+wave_afficheur::wave_afficheur(apercu_son& s, effet& e, double pas) : s_(s), pas_x_(pas), selection_start_(-1), selection_end_(-1), peut_selectionner_(true), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()), fx_(e) {
 	add_events(Gdk::BUTTON_PRESS_MASK | Gdk::BUTTON_RELEASE_MASK | Gdk::POINTER_MOTION_MASK | Gdk::POINTER_MOTION_HINT_MASK);
 }
 
@@ -105,7 +105,6 @@ bool wave_afficheur::on_button_release_event(GdkEventButton* e) {
 	if(selection_start_ < 0)
 		selection_start_ = 0;
 	selectionne_ = false;
-	std::cout << selection_start_ << "; " << selection_end_ << std::endl;
 	return true;
 }
 

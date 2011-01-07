@@ -65,12 +65,3 @@ void effet::limites(double d, double f) {
 	debut(d);
 	fin(f);
 }
-
-void effet::allonger() {
-	// On rajoute des échantillons sur la fin si le son n'est pas assez grand, sinon on bouge la fin
-	double allongement_ = allongement();
-	if(echantillon_fin() + allongement_ > out().size())
-		out().data().resize(echantillon_fin() + allongement_);
-	else
-		fin_ += allongement_ * 1.0 / out().size();
-}
