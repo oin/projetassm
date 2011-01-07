@@ -27,6 +27,8 @@ struct effet {
 	size_t echantillon_debut();
 	size_t echantillon_fin();
 	void limites(double d, double f);
+protected:
+	void mixer_drywet();
 private:
 	assm::son* s_;
 	assm::son* s_out_;

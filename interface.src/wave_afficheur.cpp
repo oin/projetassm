@@ -32,7 +32,7 @@ double distributeur_de_teintes::prochaine_teinte() {
 	return hue;
 }
 
-wave_afficheur::wave_afficheur(controleur& c, effet* e, int numero_effet, double pas) : c_(c), s_(c.apercu()), pas_x_(pas), selectionne_(false), peut_selectionner_(true), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()), fx_(e), numero_effet_(numero_effet) {
+wave_afficheur::wave_afficheur(controleur& c, effet* e, int numero_effet, double pas) : c_(c), s_(c.apercu()), pas_x_(pas), selectionne_(false), peut_selectionner_(true), en_plein_clic_sur_croix_(false), teinte_selection_(distributeur_de_teintes::instance().prochaine_teinte()), fx_(e), numero_effet_(numero_effet) {
 	selection_start_ = -1;
 	selection_end_ = -1;
 	
@@ -90,7 +90,6 @@ bool wave_afficheur::on_expose_event(GdkEventExpose* e) {
 		cr->clip();
 		
 		// Dessine des bouts de forme d'onde
-		//cr->set_source_rgba(1.0, 0.3, 0.3, 1.0);
 		dessiner(cr, 0, 1.0, 0, 0, get_width(), get_height());
 		
 		// Dessine une sélection
@@ -108,11 +107,18 @@ bool wave_afficheur::on_expose_event(GdkEventExpose* e) {
 		
 		// Dessine une croix de fermeture
 		if(peut_selectionner_) {
-			static const double rayon = 4.0;
 			cr->save();
-			cr->set_source_rgba(0.0, 0.0, 0.0, 0.8);
-			cr->arc(get_width() - rayon * 2.0, rayon, rayon, 0.0, 2.0 * M_PI);
+			cr->set_source_rgba(0.0, 0.0, 0.0, en_plein_clic_sur_croix_ ? 0.8 : 0.5);
+			cr->arc(get_width() - rayon_, rayon_, rayon_, 0.0, 2.0 * M_PI);
 			cr->fill();
+			cr->set_line_width(2.0);
+			cr->set_source_rgba(1.0, 1.0, 1.0, 0.8);
+			cr->move_to(get_width() - rayon_ * 1.5, rayon_ * 0.5);
+			cr->line_to(get_width() - rayon_ * 0.5, rayon_ * 1.5);
+			cr->stroke();
+			cr->move_to(get_width() - rayon_ * 0.5, rayon_ * 0.5);
+			cr->line_to(get_width() - rayon_ * 1.5, rayon_ * 1.5);
+			cr->stroke();
 			cr->restore();
 		}
 	}
@@ -126,6 +132,11 @@ Gdk::Color wave_afficheur::couleur() {
 
 bool wave_afficheur::on_button_press_event(GdkEventButton* e) {
 	if(!peut_selectionner_) return true;
+	if(e->y >= 0 && e->y <= rayon_ * 2 && e->x <= get_width() && e->x >= get_width() - rayon_ * 2) {
+		en_plein_clic_sur_croix_ = true;
+		queue_draw();
+		return true;
+	}
 	selection_start_ = std::max(0.0, e->x / get_width());
 	selectionne_ = true;
 	return true;
@@ -133,6 +144,17 @@ bool wave_afficheur::on_button_press_event(GdkEventButton* e) {
 
 bool wave_afficheur::on_button_release_event(GdkEventButton* e) {
 	if(!peut_selectionner_) return true;
+	
+	if(en_plein_clic_sur_croix_)
+	 	if(e->y >= 0 && e->y <= rayon_ * 2 && e->x <= get_width() && e->x >= get_width() - rayon_ * 2) {
+			en_plein_clic_sur_croix_ = false;
+			c_.supprimer_effet(numero_effet_);
+			return true;
+		} else {
+			en_plein_clic_sur_croix_ = false;
+			queue_draw();
+		}
+	
 	verifier_selection();
 	
 	if(fx_ != 0) {

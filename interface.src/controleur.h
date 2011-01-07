@@ -22,6 +22,8 @@ struct controleur {
 	void creer_distorsion();
 	void creer_normalisation();
 	void creer_inverse();
+	void creer_volume();
+	void creer_chuchotement();
 	
 	void ouvrir_fichier_entree();
 	void choisir_fichier_sortie();
@@ -30,6 +32,8 @@ struct controleur {
 	void actualiser();
 	
 	Gdk::Color couleur_sur(double position, int jusqu_a);
+	
+	void supprimer_effet(int numero);
 private:
 	void charger_son(std::string);
 	

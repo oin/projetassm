@@ -65,3 +65,15 @@ void effet::limites(double d, double f) {
 	debut(d);
 	fin(f);
 }
+
+void effet::mixer_drywet() {
+	// Mixe l'entrée et la sortie finie pour le dry/wet
+	for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i) {
+		out().data()[i] =
+			// On mixe le signal distordu
+			std::min(1.0, std::max(-1.0, out().data()[i])) * wet() 
+			+
+			// Et le signal d'origine
+			in().data()[i] * dry();
+	}
+}

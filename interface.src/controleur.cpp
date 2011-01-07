@@ -1,4 +1,13 @@
+#include "chuchotement.h"
+#include "tranche_chuchotement.h"
+#include "volume.h"
+#include "tranche_volume.h"
+#include "delay.h"
+#include "tranche_delay.h"
+#include "distorsion.h"
+#include "tranche_disto.h"
 #include "inverse.h"
+#include "tranche_inverse.h"
 #include "controleur.h"
 #include "hsl2rgb.h"
 #include <iostream>
@@ -88,10 +97,9 @@ void controleur::appliquer_effets() {
 void controleur::creer_inverse() {
 	effet* e = new inverse(fx_);
 	fx_.effets().push_back(e);
-	tranche_effet* t = new tranche_effet(*this, e, tranches_.size());
+	tranche_effet* t = new tranche_inverse(*this, e, tranches_.size());
 	tranches_.push_back(t);
 	vbx_effets_.pack_start(*t, false, false, 5);
-	w_.show_all_children();
 	actualiser();
 }
 
@@ -100,7 +108,12 @@ void controleur::creer_noisegate() {
 }
 
 void controleur::creer_delay() {
-	
+	effet* e = new delay(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_delay(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
 }
 
 void controleur::creer_normalisation() {
@@ -108,7 +121,30 @@ void controleur::creer_normalisation() {
 }
 
 void controleur::creer_distorsion() {
-	
+	effet* e = new distorsion(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_disto(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_volume() {
+	effet* e = new volume(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_volume(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_chuchotement() {
+	effet* e = new chuchotement(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_chuchotement(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
 }
 
 void controleur::charger_son(std::string n) {
@@ -209,5 +245,22 @@ Gdk::Color controleur::couleur_sur(double position, int jusqu_a) {
 }
 
 void controleur::actualiser() {
+	w_.show_all_children();
 	w_.queue_draw();
+}
+
+void controleur::supprimer_effet(int numero) {
+	effet* e = fx_.effets()[numero];
+	fx_.effets().erase(fx_.effets().begin() + numero);
+	tranche_effet* t = tranches_[numero];
+	tranches_.erase(tranches_.begin() + numero);
+	vbx_effets_.remove(*t);
+	delete t;
+	delete e;
+	
+	// Met à jour les numéros des effets
+	for(size_t i=0; i<tranches_.size(); ++i)
+		tranches_[i]->set_numero(i);
+	
+	actualiser();
 }
