@@ -1,6 +1,6 @@
 # Introduction #
 
-Le projet d'ASSM est un projet très bien, il permer de faire des choses très peu utiles mais quand même, c'est beaucoup de travail !
+Le projet d'ASSM est un projet très bien, il permet de faire des choses très peu utiles mais quand même, c'est beaucoup de travail !
 
 # Mise en marche #
 
@@ -12,16 +12,20 @@ Pour utiliser le projet d'ASSM, il suffit de disposer des bibliothèques logicie
 * GTK+ et GTKmm;
 * sox.
 
+Il n'est pas nécessaire de posséder une bibliothèque chez soi.
+
 ## Compilation ##
 
 Dans ce répertoire :
 
 	$ make
 
-La compilation devrait se dérouler paisiblement.
+La compilation devrait se dérouler paisiblement. Prenez une tisane, pensez à la crise et détendez-vous.
 
 ## Exécution ##
 
 Dans ce répertoire :
 
 	$ ./projet
+
+Votre mâchoire entre en collision avec la table la plus proche et vos yeux ébahis trahissent votre joie innocente. Bienvenue dans le monde magique des effets audionumériques !
