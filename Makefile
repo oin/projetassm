@@ -46,6 +46,8 @@ vpath %.h $(projet_dir) $(projet_dir)/effets $(projet_dir)/interface $(assm_dir)
 projet_objects = $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/*.cpp))
 projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/interface/*.cpp))
 projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/effets/*.cpp))
+projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/imcc/*.cpp))
+projet_objects+= $(patsubst %.c,%.o,$(wildcard $(projet_dir)/imcc/*.c))
 
 ##################
 

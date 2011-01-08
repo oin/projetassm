@@ -5,7 +5,7 @@
 tranche_delay::tranche_delay(controleur& c, effet* e, int numero_effet) : tranche_effet(c, e, numero_effet), lbl_time_("Temps (s) :"), scl_time_(0.0, 2.01, 0.01), lbl_feedback_("Feedback"), scl_feedback_(0.0, 1.05, 0.05) {
 	scl_wet_.set_value(0.5);
 	
-	conteneur_.set_label("Delay");
+	conteneur_.set_label("Écho");
 	
 	scl_time_.set_value(0.2);
 	scl_time_.signal_value_changed().connect(sigc::mem_fun(*this, &tranche_delay::timechg));

@@ -1,3 +1,7 @@
+#include "noise_gate.h"
+#include "tranche_noisegate.h"
+#include "normalisation.h"
+#include "tranche_normalisation.h"
 #include "vinyl.h"
 #include "tranche_vinyl.h"
 #include "chuchotement.h"
@@ -106,7 +110,12 @@ void controleur::creer_inverse() {
 }
 
 void controleur::creer_noisegate() {
-	std::cout << "Noise gate" << std::endl;
+	effet* e = new noise_gate(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_noisegate(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
 }
 
 void controleur::creer_delay() {
@@ -119,7 +128,12 @@ void controleur::creer_delay() {
 }
 
 void controleur::creer_normalisation() {
-	
+	effet* e = new normalisation(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_normalisation(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
 }
 
 void controleur::creer_distorsion() {
