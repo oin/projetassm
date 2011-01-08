@@ -18,7 +18,7 @@ gtkmm_ldflags = `pkg-config gtkmm-2.4 --libs`
 
 # lib : projet
 projet_dir = ./libprojet
-projet_cppflags = -I$(projet_dir) -I$(projet_dir)/effets -I$(projet_dir)/interface
+projet_cppflags = -I$(projet_dir) -I$(projet_dir)/effets -I$(projet_dir)/imcc -I$(projet_dir)/interface
 
 # libs:
 librairies = assm fftw3 gtkmm projet
@@ -41,7 +41,7 @@ LDFLAGS += $(librairies_ldflags)
 programmes = $(patsubst %.src,%,$(wildcard *.src))
 
 # Tous dépendent de libprojet
-vpath %.h $(projet_dir) $(projet_dir)/effets $(projet_dir)/interface $(assm_dir)/include
+vpath %.h $(projet_dir) $(projet_dir)/effets $(projet_dir)/interface $(projet_dir)/imcc $(assm_dir)/include
 
 projet_objects = $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/*.cpp))
 projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/interface/*.cpp))
