@@ -27,13 +27,13 @@ int main(int argc, char **argv) {
 	
 	// Crée une chaîne d'effets sur le son
 	chaine_effets c(pd);
-	delay d(c);
-	c.effets().push_back(&d);
-	d.debut(0.2);
-	d.fin(0.3);
-	d.time(0.2);
-	d.wet(0.3);
-	d.feedback(0.4);
+	// delay d(c);
+	// 	c.effets().push_back(&d);
+	// 	d.debut(0.2);
+	// 	d.fin(0.3);
+	// 	d.time(0.2);
+	// 	d.wet(0.3);
+	// 	d.feedback(0.4);
 	/*
 	// Crée une bonne grosse disto de bâtard
 	distorsion d(c, 24.0);
@@ -65,21 +65,6 @@ int main(int argc, char **argv) {
 	/*
 	lowboost l(c);
 	c.effets().push_back(&l);*/
-<<<<<<< HEAD
-	/*
-	lowpass l(c,200);
-	c.effets().push_back(&l);
-	*/
-	/*
-	highpass h(c,1200);
-	c.effets().push_back(&h);
-	*/
-=======
-	
-	// lowpass l(c,200);
-	// c.effets().push_back(&l);
-	
->>>>>>> 6638f2801a3bd2fbceb626e3b9bbc52ca9d95b64
 // 	r.debut(0);
 // 	r.fin(1);
 	

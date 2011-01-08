@@ -1,4 +1,5 @@
 #include "chuchotement.h"
+#include <assm.h>
 
 using namespace assm;
 
