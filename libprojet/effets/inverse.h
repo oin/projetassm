@@ -2,7 +2,6 @@
 #define INVERSE_H_9BYEBXVV
 
 #include "effet.h"
-#include <son.h>
 
 struct inverse : public effet {
 	inverse(chaine_effets& s) : effet(s) {}

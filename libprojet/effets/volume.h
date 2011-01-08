@@ -2,7 +2,6 @@
 #define VOLUME_H_1R2ZU1X6
 
 #include "effet.h"
-#include <son.h>
 
 struct volume : public effet {
 	volume(chaine_effets& c, double g = 1.0) : effet(c), gain_(g) {}

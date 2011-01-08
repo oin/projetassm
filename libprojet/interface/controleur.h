@@ -24,6 +24,7 @@ struct controleur {
 	void creer_inverse();
 	void creer_volume();
 	void creer_chuchotement();
+	void creer_vinyl();
 	
 	void ouvrir_fichier_entree();
 	void choisir_fichier_sortie();

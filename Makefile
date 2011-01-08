@@ -18,7 +18,7 @@ gtkmm_ldflags = `pkg-config gtkmm-2.4 --libs`
 
 # lib : projet
 projet_dir = ./libprojet
-projet_cppflags = -I$(projet_dir)
+projet_cppflags = -I$(projet_dir) -I$(projet_dir)/effets -I$(projet_dir)/interface
 
 # libs:
 librairies = assm fftw3 gtkmm projet
@@ -41,28 +41,32 @@ LDFLAGS += $(librairies_ldflags)
 programmes = $(patsubst %.src,%,$(wildcard *.src))
 
 # Tous dépendent de libprojet
-vpath %.h $(projet_dir) $(assm_dir)/include
+vpath %.h $(projet_dir) $(projet_dir)/effets $(projet_dir)/interface $(assm_dir)/include
+
 projet_objects = $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/*.cpp))
+projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/interface/*.cpp))
+projet_objects+= $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/effets/*.cpp))
 
 ##################
 
 .PHONY: all libassm
+.SECONDARY: 
 
 all: libassm $(programmes)
 
 libassm:
 	make --directory=$(assm_dir)
 
-%: %.src/*.cpp libprojet.a $(assm_dir)/lib/libassm.a
+%: %.src/*.cpp $(projet_objects) $(assm_dir)/lib/libassm.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
 
-libprojet.a: $(projet_objects)
-	$(AR) $(ARFLAGS)s $@ $^
+# libprojet.a: $(projet_objects)
+#	$(AR) $(ARFLAGS)s $@ $^
 
 %.o: %.cpp
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $^
 
 .PHONY: clean
 clean:
-	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) libprojet.a libprojet/*.o
+	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) libprojet.a libprojet/*.o libprojet/interface/*.o libprojet/effets/*.o
 	make --directory=$(assm_dir) clean

@@ -71,10 +71,13 @@ void wave_afficheur::dessiner(Cairo::RefPtr<Cairo::Context> &cr, double debut, d
 		cr->set_source_rgba(clr_actuelle.get_red_p(), clr_actuelle.get_green_p(), clr_actuelle.get_blue_p(), 0.7);
 		size_t i_apercu = static_cast<size_t>(std::floor(i * pas_apercu));
 		size_t isuiv_apercu = static_cast<size_t>(std::floor((i+1) * pas_apercu));
-		double y = std::abs(*std::max_element(s_().begin() + std::min(i_apercu, s_.size() - 1), s_().begin() + std::min(isuiv_apercu, s_.size())));
-		cr->move_to(i * pas_x_, (1 - y) * h/2);
-		cr->line_to(i * pas_x_, (1 + y) * h/2);
-		cr->stroke();
+		std::vector<double>::iterator maxi = std::max_element(s_().begin() + std::min(i_apercu, s_.size() - 1), s_().begin() + std::min(isuiv_apercu, s_.size()));
+		if(maxi != s_().end()) {
+			double y = std::abs(*std::max_element(s_().begin() + std::min(i_apercu, s_.size() - 1), s_().begin() + std::min(isuiv_apercu, s_.size())));
+			cr->move_to(i * pas_x_, (1 - y) * h/2);
+			cr->line_to(i * pas_x_, (1 + y) * h/2);
+			cr->stroke();
+		}
 	}
 	
 	cr->restore();

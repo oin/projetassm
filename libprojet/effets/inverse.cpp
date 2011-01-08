@@ -1,4 +1,5 @@
 #include "inverse.h"
+#include <son.h>
 
 void inverse::operator()() {
 	for(size_t i=echantillon_debut(); i<echantillon_fin(); ++i)

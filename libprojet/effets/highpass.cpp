@@ -1,5 +1,5 @@
 #include "highpass.h"
-#include <iostream>
+#include <assm.h>
 
 using namespace assm;
 
@@ -28,8 +28,7 @@ void highpass::operator()() {
 
 
 	size_t taille_fft = 1024;
-	double ordre = (freq_*taille_fft)/44100; 
-	std::cout<<"ordre: "<<ordre<<" \n";
+	double ordre = (freq_*taille_fft)/44100;
 	son fenetre(taille_fft, 44100);
 	son fenetretmp(taille_fft, 44100);
 	

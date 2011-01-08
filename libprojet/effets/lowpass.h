@@ -2,9 +2,6 @@
 #define LOWPASS_H_9BYEBXVV
 
 #include <effet.h>
-#include <son.h>
-#include <assm.h>
-#include <iterator_part.hpp>
 
 
 struct lowpass : public effet {

@@ -2,7 +2,6 @@
 #define NOISE_GATE_H_9BYEBXEE
 
 #include <effet.h>
-#include <son.h>
 
 struct noise_gate : public effet {
 	noise_gate(chaine_effets& s, double l = 0.1) : effet(s), limit_(l) {}

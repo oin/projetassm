@@ -2,11 +2,11 @@
 #define TRANCHE_DELAY_H_6RGWYU2C
 
 #include "tranche_effet.h"
-#include "delay.h"
 
 struct tranche_delay : public tranche_effet {
 	tranche_delay(controleur&, effet*, int);
 	~tranche_delay() {}
+	
 	void timechg();
 	void fbchg();
 private:

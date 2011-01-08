@@ -1,3 +1,5 @@
+#include "vinyl.h"
+#include "tranche_vinyl.h"
 #include "chuchotement.h"
 #include "tranche_chuchotement.h"
 #include "volume.h"
@@ -142,6 +144,15 @@ void controleur::creer_chuchotement() {
 	effet* e = new chuchotement(fx_);
 	fx_.effets().push_back(e);
 	tranche_effet* t = new tranche_chuchotement(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_vinyl() {
+	effet* e = new vinyl(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_vinyl(*this, e, tranches_.size());
 	tranches_.push_back(t);
 	vbx_effets_.pack_start(*t, false, false, 5);
 	actualiser();

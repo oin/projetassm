@@ -2,7 +2,6 @@
 #define DELAY_H_9BYEVXJJ
 
 #include <effet.h>
-#include <son.h>
 
 struct delay : public effet {
 	delay(chaine_effets& c, double t = 1.0) : effet(c), time_(t) {}

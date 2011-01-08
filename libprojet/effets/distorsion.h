@@ -2,7 +2,6 @@
 #define DISTORSION_H_9BYEBXJJ
 
 #include <effet.h>
-#include <son.h>
 
 struct distorsion : public effet {
 	distorsion(chaine_effets& c, double g = 1.0) : effet(c), gain_(g) {}

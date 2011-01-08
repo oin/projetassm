@@ -37,6 +37,11 @@ liste_effets::liste_effets(controleur& c) : c_(c), boite_a_boutons_(Gtk::BUTTONB
 	b_chuchotement_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_chuchotement));
 	boite_a_boutons_.add(b_chuchotement_);
 	
+	b_vinyl_.set_label("Vinyl");
+	b_vinyl_.set_focus_on_click(false);
+	b_vinyl_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_vinyl));
+	boite_a_boutons_.add(b_vinyl_);
+	
 	add(boite_a_boutons_);
 	set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_NEVER);
 }

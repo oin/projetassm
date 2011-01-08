@@ -1,5 +1,5 @@
 #include "noise_gate.h"
-#include <iostream>
+#include <son.h>
 
 void noise_gate::operator()() {
 		// Noise gate !

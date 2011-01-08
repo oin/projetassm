@@ -1,4 +1,5 @@
 #include "normalisation.h"
+#include <son.h>
 
 void normalisation::operator()() {
 		// Normalisation
