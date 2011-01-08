@@ -41,7 +41,7 @@ LDFLAGS += $(librairies_ldflags)
 programmes = $(patsubst %.src,%,$(wildcard *.src))
 
 # Tous dépendent de libprojet
-vpath %.h $(projet_dir)
+vpath %.h $(projet_dir) $(assm_dir)/include
 projet_objects = $(patsubst %.cpp,%.o,$(wildcard $(projet_dir)/*.cpp))
 
 ##################
