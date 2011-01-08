@@ -67,7 +67,7 @@ int main(int argc, char **argv) {
 // 	r.debut(0);
 // 	r.fin(1);
 	
-	partition p(c,"test.midi");
+	partition p(c,"test.mid");
 	c.effets().push_back(&p);
 	/*
 	delay d(c,0.2);
