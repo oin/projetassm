@@ -52,11 +52,6 @@ liste_effets::liste_effets(controleur& c) : c_(c), boite_a_boutons_(Gtk::BUTTONB
 	b_highpass_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_highpass));
 	boite_a_boutons_.add(b_highpass_);
 	
-	b_partition_.set_label("WAV->MIDI");
-	b_partition_.set_focus_on_click(false);
-	b_partition_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_partition));
-	boite_a_boutons_.add(b_partition_);
-	
 	b_accompagnement_.set_label("Accompagnement");
 	b_accompagnement_.set_focus_on_click(false);
 	b_accompagnement_.signal_clicked().connect(sigc::mem_fun(c_, &controleur::creer_accompagnement));

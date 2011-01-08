@@ -1,7 +1,5 @@
-// #include "accompagnement.h"
-// #include "tranche_accompagnement.h"
-// #include "partition.h"
-// #include "tranche_partition.h"
+#include "accompagnement.h"
+#include "tranche_accompagnement.h"
 #include "highpass.h"
 #include "tranche_highpass.h"
 #include "lowpass.h"
@@ -198,22 +196,13 @@ void controleur::creer_lowpass() {
 	actualiser();
 }
 
-void controleur::creer_partition() {
-	// effet* e = new partition(fx_);
-	// fx_.effets().push_back(e);
-	// tranche_effet* t = new tranche_partition(*this, e, tranches_.size());
-	// tranches_.push_back(t);
-	// vbx_effets_.pack_start(*t, false, false, 5);
-	// actualiser();
-}
-
 void controleur::creer_accompagnement() {
-	// effet* e = new accompagnement(fx_);
-	// fx_.effets().push_back(e);
-	// tranche_effet* t = new tranche_accompagnement(*this, e, tranches_.size());
-	// tranches_.push_back(t);
-	// vbx_effets_.pack_start(*t, false, false, 5);
-	// actualiser();
+	effet* e = new accompagnement(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_accompagnement(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
 }
 
 void controleur::charger_son(std::string n) {

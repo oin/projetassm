@@ -32,11 +32,10 @@ struct bruit_blanc {
 #endif
 
 // Le Sinus
-class sinusoide {
+struct sinusoide {
 	size_t	frame_actuelle_, // ne pas confondre avec Femme Actuelle
 		sample_rate_;
 	double frequence_;
-public:
 	sinusoide(double frequence, size_t sample_rate) : frame_actuelle_(0), sample_rate_(sample_rate), frequence_(frequence) {}
 	double operator()() { return sin(frame_actuelle_++ * 2 * M_PI * frequence_ / sample_rate_); }
 };

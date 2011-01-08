@@ -27,7 +27,6 @@ struct controleur {
 	void creer_bassboost();
 	void creer_lowpass();
 	void creer_highpass();
-	void creer_partition();
 	void creer_accompagnement();
 	
 	void ouvrir_fichier_entree();
