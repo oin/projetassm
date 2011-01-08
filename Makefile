@@ -5,7 +5,7 @@
 # lib: assm
 assm_dir = ./libassm
 assm_cppflags = -I$(assm_dir)/include
-assm_ldflags = -L$(assm_dir)/lib -lassm
+assm_ldflags = -L$(assm_dir)/lib
 
 # lib: fftw3
 fftw3_dir = /opt/local
@@ -53,7 +53,7 @@ all: libassm $(programmes)
 libassm:
 	make --directory=$(assm_dir)
 
-%: %.src/*.cpp $(assm_dir)/lib/libassm.a libprojet.a
+%: %.src/*.cpp libprojet.a $(assm_dir)/lib/libassm.a
 	$(LINK.cpp) $(OUTPUT_OPTION) $^
 
 libprojet.a: $(projet_objects)
