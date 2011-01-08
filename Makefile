@@ -68,7 +68,9 @@ libassm:
 %.o: %.cpp
 	$(COMPILE.cpp) $(OUTPUT_OPTION) $^
 
-.PHONY: clean
-clean:
-	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) libprojet.a libprojet/*.o libprojet/interface/*.o libprojet/effets/*.o
+.PHONY: clean clean_objects
+clean_objects:
+	rm -rf *.o $(projet_objects)
+clean: clean_objects
+	rm -rf *.o *.d $(programmes) $(addsuffix .dSYM,$(programmes)) $(addsuffix /*.o,$(programmes)) libprojet.a
 	make --directory=$(assm_dir) clean

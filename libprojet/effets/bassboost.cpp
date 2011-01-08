@@ -5,11 +5,11 @@ using namespace assm;
 
 void filtrePassBas(son& s,double ordre){
 size_t i;
-s.data()[0]=2;
+s.data()[0]=1.3;
 s.data()[(int)ordre/2]=2;
 
   for(i=1;i<(ordre/2);i++){
-    s.data()[i]=2;
+    s.data()[i]=1.3;
   }
   
  for(i=(int)(ordre/2);i<s.size();i++){
@@ -34,7 +34,8 @@ void lowboost::operator()() {
 	applique_fenetre_de_hann(fenetre_hann);
 	
 	son filtre(taille_fft, 44100);
-	filtrePassBas(filtre,50); 
+	// jusqu'à 300 Hz
+	filtrePassBas(filtre, 7); 
 	
 	fft ma_fft(fenetre);
 	ffti ma_ffti(ma_fft.out());
@@ -60,4 +61,5 @@ void lowboost::operator()() {
 		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
 
+	mixer_drywet();
 }

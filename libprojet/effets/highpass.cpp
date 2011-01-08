@@ -65,4 +65,5 @@ void highpass::operator()() {
 		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
 
+	mixer_drywet();
 }

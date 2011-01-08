@@ -1,5 +1,13 @@
-#include "noise_gate.h"
-#include "tranche_noisegate.h"
+// #include "accompagnement.h"
+// #include "tranche_accompagnement.h"
+// #include "partition.h"
+// #include "tranche_partition.h"
+#include "highpass.h"
+#include "tranche_highpass.h"
+#include "lowpass.h"
+#include "tranche_lowpass.h"
+#include "bassboost.h"
+#include "tranche_bassboost.h"
 #include "normalisation.h"
 #include "tranche_normalisation.h"
 #include "vinyl.h"
@@ -109,15 +117,6 @@ void controleur::creer_inverse() {
 	actualiser();
 }
 
-void controleur::creer_noisegate() {
-	effet* e = new noise_gate(fx_);
-	fx_.effets().push_back(e);
-	tranche_effet* t = new tranche_noisegate(*this, e, tranches_.size());
-	tranches_.push_back(t);
-	vbx_effets_.pack_start(*t, false, false, 5);
-	actualiser();
-}
-
 void controleur::creer_delay() {
 	effet* e = new delay(fx_);
 	fx_.effets().push_back(e);
@@ -172,14 +171,60 @@ void controleur::creer_vinyl() {
 	actualiser();
 }
 
+void controleur::creer_bassboost() {
+	effet* e = new lowboost(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_bassboost(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_highpass() {
+	effet* e = new highpass(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_highpass(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_lowpass() {
+	effet* e = new lowpass(fx_);
+	fx_.effets().push_back(e);
+	tranche_effet* t = new tranche_lowpass(*this, e, tranches_.size());
+	tranches_.push_back(t);
+	vbx_effets_.pack_start(*t, false, false, 5);
+	actualiser();
+}
+
+void controleur::creer_partition() {
+	// effet* e = new partition(fx_);
+	// fx_.effets().push_back(e);
+	// tranche_effet* t = new tranche_partition(*this, e, tranches_.size());
+	// tranches_.push_back(t);
+	// vbx_effets_.pack_start(*t, false, false, 5);
+	// actualiser();
+}
+
+void controleur::creer_accompagnement() {
+	// effet* e = new accompagnement(fx_);
+	// fx_.effets().push_back(e);
+	// tranche_effet* t = new tranche_accompagnement(*this, e, tranches_.size());
+	// tranches_.push_back(t);
+	// vbx_effets_.pack_start(*t, false, false, 5);
+	// actualiser();
+}
+
 void controleur::charger_son(std::string n) {
 	assm::son s_tmp_(44100);
 	
 	assm::lire_wav(n, s_tmp_);
 	
 	s_.data().clear();
+	s_.data().resize(s_tmp_.size());
 	
-	s_.data() = s_tmp_.data();
+	std::copy(s_tmp_.begin(), s_tmp_.end(), s_.begin());
 	
 	apercu_.set(s_);
 	

@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
-#include <iostream>
 #include <cmath>
 
 double modul(double l) {
@@ -51,6 +50,8 @@ void wave_afficheur::dessiner(Cairo::RefPtr<Cairo::Context> &cr, int x, int y, i
 }
 
 void wave_afficheur::dessiner(Cairo::RefPtr<Cairo::Context> &cr, double debut, double fin, int x, int y, int w, int h) {
+	if(s_.size() == 0)
+		return;
 	if(debut > fin)
 		std::swap(debut, fin);
 	fin = std::min(1.0, fin);
@@ -73,9 +74,9 @@ void wave_afficheur::dessiner(Cairo::RefPtr<Cairo::Context> &cr, double debut, d
 		size_t isuiv_apercu = static_cast<size_t>(std::floor((i+1) * pas_apercu));
 		std::vector<double>::iterator maxi = std::max_element(s_().begin() + std::min(i_apercu, s_.size() - 1), s_().begin() + std::min(isuiv_apercu, s_.size()));
 		if(maxi != s_().end()) {
-			double y = std::abs(*std::max_element(s_().begin() + std::min(i_apercu, s_.size() - 1), s_().begin() + std::min(isuiv_apercu, s_.size())));
-			cr->move_to(i * pas_x_, (1 - y) * h/2);
-			cr->line_to(i * pas_x_, (1 + y) * h/2);
+			double y = std::abs(*maxi);
+			cr->move_to(i * pas_x_, (1.0 - y) * h/2);
+			cr->line_to(i * pas_x_, (1.0 + y) * h/2);
 			cr->stroke();
 		}
 	}

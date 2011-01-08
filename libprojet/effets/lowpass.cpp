@@ -25,10 +25,8 @@ void fenetre_de_hann(son& s) {
 
 void lowpass::operator()() {
 	// lowpass
-
-
 	size_t taille_fft = 1024;
-	double ordre = (freq_*taille_fft)/44100; 
+	double ordre = (freq_*taille_fft)/44100;
 	son fenetre(taille_fft, 44100);
 	son fenetretmp(taille_fft, 44100);
 	
@@ -64,4 +62,6 @@ void lowpass::operator()() {
 		// Recopie le résultat dans la sortie au bon endroit
 		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
+	
+	mixer_drywet();
 }

@@ -17,7 +17,6 @@ struct controleur {
 	void lancer();
 	void appliquer_effets();
 	
-	void creer_noisegate();
 	void creer_delay();
 	void creer_distorsion();
 	void creer_normalisation();
@@ -25,6 +24,11 @@ struct controleur {
 	void creer_volume();
 	void creer_chuchotement();
 	void creer_vinyl();
+	void creer_bassboost();
+	void creer_lowpass();
+	void creer_highpass();
+	void creer_partition();
+	void creer_accompagnement();
 	
 	void ouvrir_fichier_entree();
 	void choisir_fichier_sortie();
