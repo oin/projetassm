@@ -145,7 +145,7 @@ bool wave_afficheur::on_button_press_event(GdkEventButton* e) {
 bool wave_afficheur::on_button_release_event(GdkEventButton* e) {
 	if(!peut_selectionner_) return true;
 	
-	if(en_plein_clic_sur_croix_)
+	if(en_plein_clic_sur_croix_) {
 	 	if(e->y >= 0 && e->y <= rayon_ * 2 && e->x <= get_width() && e->x >= get_width() - rayon_ * 2) {
 			en_plein_clic_sur_croix_ = false;
 			c_.supprimer_effet(numero_effet_);
@@ -154,6 +154,7 @@ bool wave_afficheur::on_button_release_event(GdkEventButton* e) {
 			en_plein_clic_sur_croix_ = false;
 			queue_draw();
 		}
+	}
 	
 	verifier_selection();
 	

@@ -1,7 +1,7 @@
 #if !defined(VOLUME_H_1R2ZU1X6)
 #define VOLUME_H_1R2ZU1X6
 
-#include <effet.h>
+#include "effet.h"
 #include <son.h>
 
 struct volume : public effet {

@@ -1,7 +1,7 @@
 #if !defined(CHUCHOTEMENT_H_9BYEBXEE)
 #define CHUCHOTEMENT_H_9BYEBXEE
 
-#include <effet.h>
+#include "effet.h"
 #include <son.h>
 
 struct chuchotement : public effet {

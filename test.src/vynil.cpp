@@ -54,6 +54,14 @@ void vynil::operator()() {
 		ma_fft.out().conjugue_symetrie();
 		// Fait la FFTI
 		ma_ffti();
+		// Génère des transitoires aléatoirement
+		bool transitoire_ici = (rand() % 10 < 1);
+		static const int taille_transitoire = 10;
+		if(transitoire_ici) {
+			size_t bin_transitoire = rand() % (taille_fft - taille_transitoire);
+			for(size_t j=0; j < taille_transitoire; ++j)
+				ma_ffti.out().data()[bin_transitoire + j] = 0.9;
+		}
 		// Recopie le résultat dans la sortie au bon endroit
 		std::transform(ma_ffti.out().begin(), ma_ffti.out().end(), out().data().begin() + i,out().data().begin() + i,std::plus<double>());
 	}
